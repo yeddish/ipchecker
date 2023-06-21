@@ -15,7 +15,7 @@ def get_local_ips():
 
 def get_external_ip():
     try:
-        return requests.get('https://api.ipify.org').text
+        return requests.get('https://ifconfig.me/ip', timeout=5).text.strip()
     except:
         return "Failed to get external IP. Check your internet connection."
 
@@ -59,7 +59,7 @@ update_local_ips_button.pack()
 
 checkboxes = {}
 for iface, _ in get_local_ips():
-    var = tk.IntVar(value=0)  # Default checkboxes to checked
+    var = tk.IntVar(value=0)  # Default checkboxes to unchecked
     checkboxes[iface] = var
     cb = ttk.Checkbutton(root, text=iface, variable=var, onvalue=1, offvalue=0)
     cb.pack()
